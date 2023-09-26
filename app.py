@@ -171,15 +171,14 @@ st.write('Status:', status_of_current_price)
 st.write('10-year German Bund price:')
 st.write(API_data["10-year German Bund price"])
 
-# Select the time range
-number = st.slider('Select the evolution time range in months', \
-                                   1, 3, 6, 12)
-days = int((number / 12) * 252)
 #----------------------------------------------------------------
 # Show the plot for 1 year historical prices for the SP500 index
 #-----------------------------------------------------------------
 
 st.header('‍Evolution of the S&P 500 index within last year')
+# Select the time range
+number = st.selectbox('Select the evolution time range in months', [1, 3, 6, 12])
+days = int((number / 12) * 252)
 fig, ax = plt.subplots()
 prices_SP[-days:].plot(ax=ax)
 plt.ylabel('S&P 500 index')

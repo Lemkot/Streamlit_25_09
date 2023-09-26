@@ -278,7 +278,7 @@ ax.legend()
 st.pyplot(fig)
 
 #--------------------------------------------------------------------------------------------------------
-# Show the plot for 1 year historical prices for the SSpread between 10-year and 2-year US interest rates
+# Show the plot for 1 year historical prices for the Spread between 10-year and 2-year US interest rates
 #--------------------------------------------------------------------------------------------------------
 
 st.header('‍Spread between 10-year and 2-year US interest rates within last year')

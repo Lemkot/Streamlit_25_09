@@ -269,7 +269,7 @@ st.pyplot(fig)
 # Show the plot for 1 year historical prices for the Spread between 2-year and 3-month US interest rates
 #--------------------------------------------------------------------------------------------------------
 
-st.header('‍Spread between 2-year and 3-month US interest rates within last 6 months')
+st.header('‍Spread between 2-year and 3-month US interest rates within last year')
 fig, ax = plt.subplots()
 rates_2023_2y[:180].plot(ax=ax, label='US dollar 2-year interest rate')
 prices_3m_interest[-180:].plot(ax=ax, label='US dollar 3-month interest rate')
@@ -281,7 +281,7 @@ st.pyplot(fig)
 # Show the plot for 1 year historical prices for the SSpread between 10-year and 2-year US interest rates
 #--------------------------------------------------------------------------------------------------------
 
-st.header('‍Spread between 10-year and 2-year US interest rates within last 6 months')
+st.header('‍Spread between 10-year and 2-year US interest rates within last year')
 fig, ax = plt.subplots()
 rates_2023_2y[:180].plot(ax=ax, label='US dollar 2-year interest rate')
 prices_10y_interest[-180:].plot(ax=ax, label='US dollar 10-year interest rate')

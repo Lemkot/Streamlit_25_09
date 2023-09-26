@@ -89,11 +89,11 @@ rates_2023_2y = rates_2023['2 Yr']
 
 def evaluate_status(current_price, historical_df, quantile_percentile=0.33):
     # Determine the name of the column with price (assuming it's the only numeric column)
-    price_column = historical_df.columns[0]
+    price_column = historical_df
 
     # Calculate the rolling quantile based on historical prices
     window_size = len(historical_df)  # Use all historical data
-    quantile_value = historical_df[price_column].quantile(q=quantile_percentile)
+    quantile_value = historical_df.quantile(q=quantile_percentile)
 
     if current_price < quantile_value:
         return "low"

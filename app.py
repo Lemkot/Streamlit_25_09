@@ -127,7 +127,7 @@ st.write('Status:', status_of_current_price)
 
 
 # Show the data and status of 10-year US Treasuries futures prices
-st.write('S&P500 front month index futures prices:')
+st.write('10-year US Treasuries futures prices:')
 st.write(API_data_10y_futures)
 # Evaluate the status of the current price
 status_of_current_price = evaluate_status(API_data_10y_futures, prices_10y_futures)
@@ -283,7 +283,7 @@ st.pyplot(fig)
 
 st.header('‍Spread between 10-year and 2-year US interest rates within last 6 months')
 fig, ax = plt.subplots()
-rates_2023_2y[-180:].plot(ax=ax, label='US dollar 2-year interest rate')
+rates_2023_2y[180:].plot(ax=ax, label='US dollar 2-year interest rate')
 prices_10y_interest[-180:].plot(ax=ax, label='US dollar 10-year interest rate')
 plt.xlabel('Date')
 ax.legend()

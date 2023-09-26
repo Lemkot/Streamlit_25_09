@@ -85,6 +85,23 @@ rates_2023_2y = rates_2023['2 Yr']
 # Show the financial markers from the API
 #-------------------------------------------------------
 
+# Function to evaluate the status of the marker
+
+def evaluate_status(current_price, historical_df, quantile_percentile=0.33):
+    # Determine the name of the column with price (assuming it's the only numeric column)
+    price_column = historical_df.select_dtypes(include='number').columns[0]
+
+    # Calculate the rolling quantile based on historical prices
+    window_size = len(historical_df)  # Use all historical data
+    quantile_value = historical_df[price_column].quantile(q=quantile_percentile)
+
+    if current_price < quantile_value:
+        return "low"
+    elif quantile_value <= current_price <= 2 * quantile_value:
+        return "medium"
+    else:
+        return "high"
+#----------------------------------------------------------------------
 
 st.header('‍Financial markers')
 
@@ -94,18 +111,63 @@ API_url = "http://13.36.215.155/"
 json_url = get_response(API_url)
 #st.write("## Json {}".format(json_url))
 API_data = json_url
+API_data_sp = API_data["S&P500 front month index futures prices"]
+API_data_10y_futures = API_data["10-year US Treasuries futures prices"]
+API_data_3m_rate = API_data["US dollar 3-month interest rate"]
+API_data_2y_rate = API_data["US dollar 2-year interest rate"]
+API_data_10y_rate = API_data["US dollar 10-year interest rate"]
+API_data_vix = API_data["VIX Index"]
+API_data_10y_bund = API_data["10-year German Bund price"]
+
+# Show the data and status of S&P500 front month index futures prices
 st.write('S&P500 front month index futures prices:')
-st.write(API_data["S&P500 front month index futures prices"])
-st.write('10-year US Treasuries futures prices:')
-st.write(API_data["10-year US Treasuries futures prices"])
+st.write(API_data_sp)
+# Evaluate the status of the current price
+status_of_current_price = evaluate_status(API_data_sp, prices_SP)
+# Print the status
+st.write('Status:', status_of_current_price)
+
+
+# Show the data and status of 10-year US Treasuries futures prices
+st.write('S&P500 front month index futures prices:')
+st.write(API_data_10y_futures)
+# Evaluate the status of the current price
+status_of_current_price = evaluate_status(API_data_10y_futures, prices_10y_futures)
+# Print the status
+st.write('Status:', status_of_current_price)
+
+# Show the data and status of US dollar 3-month interest rate
 st.write('US dollar 3-month interest rate:')
-st.write(API_data["US dollar 3-month interest rate"])
-st.write('US dollar 10-year interest rate:')
-st.write(API_data["US dollar 10-year interest rate"])
-st.write('VIX Index:')
-st.write(API_data["VIX Index"])
+st.write(API_data_3m_rate)
+# Evaluate the status of the current price
+status_of_current_price = evaluate_status(API_data_3m_rate, prices_3m_interest)
+# Print the status
+st.write('Status:', status_of_current_price)
+
+# Show the data and status of US dollar 2-year interest rate
 st.write('US dollar 2-year interest rate:')
-st.write(API_data["US dollar 2-year interest rate"])
+st.write(API_data_2y_rate)
+# Evaluate the status of the current price
+status_of_current_price = evaluate_status(API_data_2y_rate, rates_2023_2y)
+# Print the status
+st.write('Status:', status_of_current_price)
+
+# Show the data and status of US dollar 10-year interest rate
+st.write('US dollar 10-year interest rate:')
+st.write(API_data_10y_rate)
+# Evaluate the status of the current price
+status_of_current_price = evaluate_status(API_data_10y_rate, prices_10y_interest)
+# Print the status
+st.write('Status:', status_of_current_price)
+
+# Show the data and status of VIX Index
+st.write('VIX Index:')
+st.write(API_data_10y_rate)
+# Evaluate the status of the current price
+status_of_current_price = evaluate_status(API_data_vix, prices_vix_index)
+# Print the status
+st.write('Status:', status_of_current_price)
+
 st.write('10-year German Bund price:')
 st.write(API_data["10-year German Bund price"])
 

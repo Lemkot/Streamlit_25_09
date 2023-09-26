@@ -28,7 +28,7 @@ def get_response(url):
 
 html_temp = """
     <div style="background-color: gray; padding:10px; border-radius:10px">
-    <h1 style="color: white; text-align:center">Dashboard - Forecasting</h1>
+    <h1 style="color: white; text-align:center">Dashboard - Markers</h1>
     </div>
     <p style="font-size: 20px; font-weight: bold; text-align:center">
     Finance</p>

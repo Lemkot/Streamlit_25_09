@@ -174,7 +174,7 @@ st.write(API_data["10-year German Bund price"])
 # Select the time range
 number = st.slider('Select the evolution time range in months', \
                                    1, 3, 6, 12)
-days = (number/12)*252
+days = int((number / 12) * 252)
 #----------------------------------------------------------------
 # Show the plot for 1 year historical prices for the SP500 index
 #-----------------------------------------------------------------

@@ -28,7 +28,7 @@ def get_response(url):
 
 html_temp = """
     <div style="background-color: gray; padding:10px; border-radius:10px">
-    <h1 style="color: white; text-align:center">Dashboard - Markers</h1>
+    <h1 style="color: white; text-align:center">Dashboard - Forecasting</h1>
     </div>
     <p style="font-size: 20px; font-weight: bold; text-align:center">
     Finance</p>
@@ -51,11 +51,11 @@ stock_10y_interest = yf.Ticker('^TNX')
 stock_vix_index = yf.Ticker('^VIX')
         
 # Fetch historical data for the stocks
-historical_data_SP = stock_SP.history(period='1y')
+historical_data_SP = stock_SP.history(period='10y')
 historical_data_10y_futures = stock_10y_futures.history(period='1y')
-historical_data_3m_interest = stock_3m_interest.history(period='1y')
-historical_data_10y_interest = stock_10y_interest.history(period='1y')
-historical_data_vix_index = stock_vix_index.history(period='1y')
+historical_data_3m_interest = stock_3m_interest.history(period='10y')
+historical_data_10y_interest = stock_10y_interest.history(period='10y')
+historical_data_vix_index = stock_vix_index.history(period='10y')
 
 # Extract the closing prices for 1 year
 prices_SP = historical_data_SP['Close']
@@ -88,9 +88,7 @@ rates_2023_2y = rates_2023['2 Yr']
 # Function to evaluate the status of the marker
 
 def evaluate_status(current_price, historical_df, quantile_percentile=0.33):
-    # Determine the name of the column with price (assuming it's the only numeric column)
-    price_column = historical_df
-
+    
     # Calculate the rolling quantile based on historical prices
     window_size = len(historical_df)  # Use all historical data
     quantile_value = historical_df.quantile(q=quantile_percentile)
@@ -175,12 +173,14 @@ st.write(API_data["10-year German Bund price"])
 # Show the plot for 1 year historical prices for the SP500 index
 #-----------------------------------------------------------------
 
-st.header('‍Evolution of the S&P 500 index within last year')
+st.header('‍Evolution of the S&P 500 index')
+
 # Select the time range
-number = st.selectbox('Select the evolution time range in months', [1, 3, 6, 12])
-days = int((number / 12) * 252)
+number_sp = st.selectbox('Select the evolution time range in months', [1, 3, 6, 12, 36, 60, 120])
+days_sp = int((number_sp / 12) * 252)
+
 fig, ax = plt.subplots()
-prices_SP[-days:].plot(ax=ax)
+prices_SP[-days_sp:].plot(ax=ax)
 plt.ylabel('S&P 500 index')
 plt.xlabel('Date')
 st.pyplot(fig)
@@ -189,9 +189,14 @@ st.pyplot(fig)
 # Show the plot for 1 year historical prices for the 10-year US Treasuries futures prices
 #-----------------------------------------------------------------------------------------
 
-st.header('‍Evolution of the 10-year US Treasuries futures prices within last year')
+st.header('‍Evolution of the 10-year US Treasuries futures prices')
+
+# Select the time range
+number_10f = st.selectbox('Select the evolution time range in months', [1, 3, 6])
+days_10f = int((number_10f / 12) * 252)
+
 fig, ax = plt.subplots()
-prices_10y_futures.plot(ax=ax)
+prices_10y_futures[-days_10f:].plot(ax=ax)
 plt.ylabel('10-year US Treasuries futures prices')
 plt.xlabel('Date')
 st.pyplot(fig)
@@ -200,9 +205,14 @@ st.pyplot(fig)
 # Show the plot for 1 year historical prices for the US dollar 3-month interest rate
 #-----------------------------------------------------------------------------------------
 
-st.header('‍Evolution of the US dollar 3-month interest rate within last year')
+st.header('‍Evolution of the US dollar 3-month interest rate')
+
+# Select the time range
+number_3mr = st.selectbox('Select the evolution time range in months', [1, 3, 6, 12, 36, 60, 120])
+days_3mr = int((number_3mr / 12) * 252)
+
 fig, ax = plt.subplots()
-prices_3m_interest.plot(ax=ax)
+prices_3m_interest[-days_3mr:].plot(ax=ax)
 plt.ylabel('US dollar 3-month interest rate')
 plt.xlabel('Date')
 st.pyplot(fig)
@@ -211,9 +221,14 @@ st.pyplot(fig)
 # Show the plot for 1 year historical prices for the US dollar 10-year interest rate
 #-----------------------------------------------------------------------------------------
 
-st.header('‍Evolution of the US dollar 10-year interest rate within last year')
+st.header('‍Evolution of the US dollar 10-year interest rate')
+
+# Select the time range
+number_10yr = st.selectbox('Select the evolution time range in months', [1, 3, 6, 12, 36, 60, 120])
+days_10yr = int((number_10yr / 12) * 252)
+
 fig, ax = plt.subplots()
-prices_10y_interest.plot(ax=ax)
+prices_10y_interest[-days_10yr:].plot(ax=ax)
 plt.ylabel('US dollar 10-year interest rate')
 plt.xlabel('Date')
 st.pyplot(fig)
@@ -222,9 +237,14 @@ st.pyplot(fig)
 # Show the plot for 1 year historical prices for the VIX Index
 #-----------------------------------------------------------------------------------------
 
-st.header('‍Evolution of the VIX Index within last year')
+st.header('‍Evolution of the VIX Index')
+
+# Select the time range
+number_vix = st.selectbox('Select the evolution time range in months', [1, 3, 6, 12, 36, 60, 120])
+days_vix = int((number_vix / 12) * 252)
+
 fig, ax = plt.subplots()
-prices_vix_index.plot(ax=ax)
+prices_vix_index[-days_vix:].plot(ax=ax)
 plt.ylabel('VIX Index')
 plt.xlabel('Date')
 st.pyplot(fig)
@@ -233,9 +253,14 @@ st.pyplot(fig)
 # Show the plot for 1 year historical prices for the US dollar 2-year interest rate
 #-----------------------------------------------------------------------------------------
 
-st.header('‍Evolution of the US dollar 2-year interest rate within last year')
+st.header('‍Evolution of the US dollar 2-year interest rate')
+
+# Select the time range
+number_2yr = st.selectbox('Select the evolution time range in months', [1, 3, 6])
+days_2yr = int((number_2yr / 12) * 252)
+
 fig, ax = plt.subplots()
-rates_2023_2y.plot(ax=ax)
+rates_2023_2y[-days_2yr:].plot(ax=ax)
 plt.ylabel('US dollar 2-year interest rate')
 plt.xlabel('Date')
 st.pyplot(fig)
@@ -244,10 +269,10 @@ st.pyplot(fig)
 # Show the plot for 1 year historical prices for the Spread between 2-year and 3-month US interest rates
 #--------------------------------------------------------------------------------------------------------
 
-st.header('‍Spread between 2-year and 3-month US interest rates within last year')
+st.header('‍Spread between 2-year and 3-month US interest rates within last 6 months')
 fig, ax = plt.subplots()
-rates_2023_2y.plot(ax=ax, label='US dollar 2-year interest rate')
-prices_3m_interest.plot(ax=ax, label='US dollar 3-month interest rate')
+rates_2023_2y[-180:].plot(ax=ax, label='US dollar 2-year interest rate')
+prices_3m_interest[-180:].plot(ax=ax, label='US dollar 3-month interest rate')
 plt.xlabel('Date')
 ax.legend()
 st.pyplot(fig)
@@ -256,10 +281,10 @@ st.pyplot(fig)
 # Show the plot for 1 year historical prices for the SSpread between 10-year and 2-year US interest rates
 #--------------------------------------------------------------------------------------------------------
 
-st.header('‍Spread between 10-year and 2-year US interest rates within last year')
+st.header('‍Spread between 10-year and 2-year US interest rates within last 6 months')
 fig, ax = plt.subplots()
-rates_2023_2y.plot(ax=ax, label='US dollar 2-year interest rate')
-prices_10y_interest.plot(ax=ax, label='US dollar 10-year interest rate')
+rates_2023_2y[-180:].plot(ax=ax, label='US dollar 2-year interest rate')
+prices_10y_interest[-180:].plot(ax=ax, label='US dollar 10-year interest rate')
 plt.xlabel('Date')
 ax.legend()
 st.pyplot(fig)

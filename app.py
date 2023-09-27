@@ -133,7 +133,8 @@ st.write(API_data_10y_futures)
 # Evaluate the status of the current price
 status_of_current_price = evaluate_status(API_data_10y_futures, prices_10y_futures)
 # Print the status
-st.write('Status:', status_of_current_price)
+#st.write('Status:', status_of_current_price)
+st.write(f"<span style='color:red'>Status: {status_of_current_price}</span>", unsafe_allow_html=True)
 
 # Show the data and status of US dollar 3-month interest rate
 st.write('US dollar 3-month interest rate:')
@@ -141,7 +142,8 @@ st.write(API_data_3m_rate)
 # Evaluate the status of the current price
 status_of_current_price = evaluate_status(API_data_3m_rate, prices_3m_interest)
 # Print the status
-st.write('Status:', status_of_current_price)
+#st.write('Status:', status_of_current_price)
+st.write(f"<span style='color:red'>Status: {status_of_current_price}</span>", unsafe_allow_html=True)
 
 # Show the data and status of US dollar 2-year interest rate
 st.write('US dollar 2-year interest rate:')
@@ -149,7 +151,8 @@ st.write(API_data_2y_rate)
 # Evaluate the status of the current price
 status_of_current_price = evaluate_status(API_data_2y_rate, rates_2023_2y)
 # Print the status
-st.write('Status:', status_of_current_price)
+#st.write('Status:', status_of_current_price)
+st.write(f"<span style='color:red'>Status: {status_of_current_price}</span>", unsafe_allow_html=True)
 
 # Show the data and status of US dollar 10-year interest rate
 st.write('US dollar 10-year interest rate:')
@@ -157,7 +160,8 @@ st.write(API_data_10y_rate)
 # Evaluate the status of the current price
 status_of_current_price = evaluate_status(API_data_10y_rate, prices_10y_interest)
 # Print the status
-st.write('Status:', status_of_current_price)
+#st.write('Status:', status_of_current_price)
+st.write(f"<span style='color:red'>Status: {status_of_current_price}</span>", unsafe_allow_html=True)
 
 # Show the data and status of VIX Index
 st.write('VIX Index:')
@@ -165,7 +169,8 @@ st.write(API_data_10y_rate)
 # Evaluate the status of the current price
 status_of_current_price = evaluate_status(API_data_vix, prices_vix_index)
 # Print the status
-st.write('Status:', status_of_current_price)
+#st.write('Status:', status_of_current_price)
+st.write(f"<span style='color:red'>Status: {status_of_current_price}</span>", unsafe_allow_html=True)
 
 st.write('10-year German Bund price:')
 st.write(API_data["10-year German Bund price"])

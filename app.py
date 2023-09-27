@@ -123,7 +123,8 @@ st.write(API_data_sp)
 # Evaluate the status of the current price
 status_of_current_price = evaluate_status(API_data_sp, prices_SP)
 # Print the status
-st.write('Status:', status_of_current_price)
+#st.write('Status:', status_of_current_price)
+st.write(f"<span style='color:red'>Status: {status_of_current_price}</span>", unsafe_allow_html=True)
 
 
 # Show the data and status of 10-year US Treasuries futures prices
